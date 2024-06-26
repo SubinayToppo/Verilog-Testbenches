@@ -1,0 +1,56 @@
+//Testbench for Sequence Detection using FSM
+
+`timescale 1ns / 1ps
+
+module seqdet_tb;
+
+    // Parameters
+    parameter CLK_PERIOD = 4; // Clock period in time units
+    parameter SIM_TIME = 100; // Simulation time
+
+    // Signals
+    reg i, clk;
+    wire y;
+
+    // Instantiate the module under test
+    seqdet dut(
+        .i(i),
+        .clk(clk),
+        .y(y)
+    );
+      
+    //clock stimulus
+    always #((CLK_PERIOD / 2)) clk <= ~clk;
+
+    // Monitor for displaying results
+        initial begin
+        $monitor("i = %b, y = %b", i, y);
+        
+        i = 0;
+        clk = 0;
+        
+        // Apply stimulus
+        #1 i = 1;
+        #4 i = 0;
+        #4 i = 0;
+        #4 i = 1;
+        #4 i = 1;
+        #4 i = 1;
+        #4 i = 0;
+        #4 i = 1;
+        #4 i = 0;
+        #4 i = 0;
+        #4 i = 0;
+        #4 i = 1;
+        #4 i = 0;
+        #4 i = 1;
+        #4 i = 0;
+        #4 i = 1;
+        #4 i = 0;
+        #4 i = 0;
+        #4 i = 1;
+        #4 i = 0;
+        #SIM_TIME;
+        $finish;
+    end
+endmodule
