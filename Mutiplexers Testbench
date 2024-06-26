@@ -1,0 +1,87 @@
+//Testbench for 2-to-1 MUX
+
+`timescale 1ns / 1ps
+
+module two2onemux_tb;
+
+  // Parameters
+  parameter DELAY = 10;
+
+  // Inputs
+  reg a, b, s;
+  
+  // Output
+  wire y;
+
+  // Instantiate the module
+  two2onemux dut(
+    .a(a),
+    .b(b),
+    .s(s),
+    .y(y)
+  );
+
+  // Stimulus
+  initial begin
+    $monitor("Time=%0t a=%b b=%b s=%b y=%b", $time, a, b, s, y);
+    s = 0; a = 0; b = 0; #DELAY;
+    s = 0; a = 0; b = 1; #DELAY;
+    s = 0; a = 1; b = 0; #DELAY;
+    s = 0; a = 1; b = 1; #DELAY;
+    s = 1; a = 0; b = 0; #DELAY;
+    s = 1; a = 0; b = 1; #DELAY;
+    s = 1; a = 1; b = 0; #DELAY;
+    s = 1; a = 1; b = 1; #DELAY;
+    // End simulation
+    $finish;
+  end
+endmodule
+
+
+
+
+
+//Testbench for 4-to-1 MUX
+
+`timescale 1ns / 1ps
+
+module four2onemux_tb;
+
+  // Parameters
+  parameter DELAY = 10;
+
+  // Inputs
+  reg a, b, c, d, s1, s0;
+  
+  // Output
+  wire y;
+
+  // Instantiate the module
+  four2onemux dut(
+    .a(a),
+    .b(b),
+    .c(c),
+    .d(d),
+    .s1(s1),
+    .s0(s0),
+    .y(y)
+  );
+
+  // Stimulus
+  initial begin
+    $monitor("Time=%0t a=%b b=%b c=%b d=%b s1=%b s0=%b y=%b", $time, a, b, c, d, s1, s0, y);
+    s1 = 0; s0 = 0; a = 0; b = 0; c = 1; d = 1; #DELAY;
+    s1 = 0; s0 = 1; a = 0; b = 0; c = 1; d = 1; #DELAY;
+    s1 = 0; s0 = 0; a = 1; b = 0; c = 1; d = 1; #DELAY;
+    s1 = 0; s0 = 1; a = 0; b = 0; c = 0; d = 1; #DELAY;
+    s1 = 0; s0 = 1; a = 0; b = 0; c = 1; d = 1; #DELAY;
+    s1 = 0; s0 = 1; a = 0; b = 1; c = 0; d = 0; #DELAY;
+    s1 = 1; s0 = 0; a = 0; b = 0; c = 1; d = 1; #DELAY;
+    s1 = 1; s0 = 0; a = 0; b = 0; c = 1; d = 0; #DELAY;
+    s1 = 1; s0 = 0; a = 0; b = 0; c = 0; d = 1; #DELAY;
+    s1 = 1; s0 = 1; a = 0; b = 1; c = 1; d = 0; #DELAY;
+    s1 = 1; s0 = 1; a = 1; b = 0; c = 0; d = 1; #DELAY;
+    // End simulation
+    $finish;
+  end
+endmodule
