@@ -1,0 +1,51 @@
+//Testbench for the Universal Shift Register (USF)
+
+`timescale 1ns / 1ps
+
+module usf_tb;
+
+    // Parameters
+    parameter CLK_PERIOD = 4; // Clock period in time units
+    parameter SIM_TIME = 40; // Simulation time
+
+    // Signals
+    wire [3:0]q;
+    reg [3:0]i;
+    reg s1,s0,sinr,sinl,clk,reset;
+
+    // Instantiate the module under test
+    usf dut(
+        .q(q),
+        .i(i),
+        .s1(s1),
+        .s0(s0),
+        .sinr(sinr),
+        .sinl(sinl),
+        .clk(clk),
+        .reset(reset)
+    );
+      
+    //clock stimulus
+    always #((CLK_PERIOD / 2)) clk <= ~clk;
+
+    // Monitor for displaying results
+        initial begin
+        $monitor("q = %b, i = %b, s1 = %b, s0 = %b, sinr = %b, sinl = %b, reset = %b,", q, i, s1, s0, sinr, sinl, reset);
+        
+        clk = 0;
+        i = 4'b1010;
+        s1 = 1'b1;
+        s0 = 1'b1;
+        reset = 1'b0;
+        
+        // Apply stimulus
+        #3 s1 = 0; s0 = 1; sinr = 1;
+        #4 s1 = 0; s0 = 1; sinr = 1;
+        #4 s1 = 1; s0 = 0; sinl = 0;
+        #4 s1 = 1; s0 = 1; sinr = 1;
+        #4 s1 = 0; s0 = 0; sinl = 0;
+        #4 s1 = 0; s0 = 0; sinl = 0; reset = 1;
+        #SIM_TIME
+        $finish;
+    end
+endmodule
