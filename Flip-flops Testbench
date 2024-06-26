@@ -1,0 +1,97 @@
+//Testbench for D flip-flops
+
+`timescale 1ns / 1ps
+
+module dff_tb;
+
+  // Parameters
+  parameter CLK_PERIOD = 4; // Clock period in time units
+  parameter SIM_TIME = 120; // Simulation time in time units
+
+  // Inputs
+  reg d, clk=0, reset=0;
+  
+  // Output
+  wire q;
+
+  // Instantiate the module
+  dff dff_inst (
+    .q(q),
+    .d(d),
+    .clk(clk),
+    .reset(reset)
+  );
+
+  // Clock generation
+  always #((CLK_PERIOD / 2)) clk <= ~clk;
+
+  // Stimulus
+  initial begin
+    $monitor("Time=%0t d=%b reset=%b clk=%b q=%b", $time, d, reset, clk, q);
+    // Initialize inputs
+    d = 0; // Initial state
+    // Test case 1: Hold state
+    #25;
+    // Test case 2: Set q to 0
+    d = 1; #20;
+    // Test case 3: Set q to 1
+    reset = 1; #2;
+    reset = 0; #2;
+    d= 0; #20;
+    // Test case 4: Toggle q
+    d = 1; #20;
+    // End simulation
+    #SIM_TIME;
+    $finish;
+  end
+endmodule
+
+
+
+//Testbench for JK flip-flops
+
+`timescale 1ns / 1ps
+
+module jkff_tb;
+
+  // Parameters
+  parameter CLK_PERIOD = 4; // Clock period in time units
+  parameter SIM_TIME = 120; // Simulation time in time units
+
+  // Inputs
+  reg j, k, clk=0;
+  
+  // Output
+  wire q;
+
+  // Instantiate the module
+  jkff jkff_inst (
+    .q(q),
+    .j(j),
+    .k(k),
+    .clk(clk)
+  );
+
+  // Clock generation
+  always #((CLK_PERIOD / 2)) clk <= ~clk;
+
+  // Stimulus
+  initial begin
+    $monitor("Time=%0t j=%b k=%b clk=%b q=%b", $time, j, k, clk, q);
+    // Initialize inputs
+    j = 0; k = 0; // Initial state
+    // Test case 1: Hold state
+    #20;
+    // Test case 2: Set q to 0
+    j = 0; k = 1; #20;
+    // Test case 3: Set q to 1
+    j = 1; k = 0; #20;
+    // Test case 4: Toggle q
+    j = 1; k = 1; #20;
+    j = 0; k = 0; #20;
+    // End simulation
+    #SIM_TIME;
+    $finish;
+  end
+endmodule
+
