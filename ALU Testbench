@@ -1,0 +1,46 @@
+//Testbench for Arithmetic Logic Unit (ALU)
+
+`timescale 1ns / 1ps
+
+module alu_tb;
+
+    // Parameter
+    parameter SIM_TIME = 50; // Simulation time
+
+    // Signals
+    reg [3:0] a, b;
+    reg carryin;
+    reg [2:0] opcodes;
+    wire [7:0] q;
+    wire carryout;
+
+    // Instantiate the module under test
+    alu dut(
+        .a(a),
+        .b(b),
+        .carryin(carryin),
+        .opcodes(opcodes),
+        .q(q),
+        .carryout(carryout)
+    );
+
+    // Monitor for displaying results
+        initial begin
+        $monitor("a = %b, b = %b, carryin = %b, opcodes = %b, q = %b, carryout = %b",a,b,carryin,opcodes,q,carryout);
+        
+        a = 4'b0000;b = 4'b0000;carryin = 1'b0;opcodes = 3'b000;
+        
+        // Apply stimulus
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b000;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b0;opcodes = 3'b000;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b001;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b010;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b011;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b100;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b101;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b110;
+        #4 a = 4'b1001;b = 4'b0111;carryin = 1'b1;opcodes = 3'b111;
+        #SIM_TIME;
+        $finish;
+    end
+endmodule
