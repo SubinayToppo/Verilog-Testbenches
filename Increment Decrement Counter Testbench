@@ -1,0 +1,89 @@
+//Testbench for the Binary 4-bit Increment Decrement Counter
+
+`timescale 1ns / 1ps
+
+module inc_dec_counter_tb;
+
+  // Parameters
+  parameter DELAY = 4, SIM_TIME = 150;
+
+  // Inputs
+  reg inc, dec, reset;
+  
+  // Output
+  wire [3:0]q; wire maxed;
+
+  // Instantiate the module
+  inc_dec_counter dut(
+    .inc(inc),
+    .dec(dec),
+    .reset(reset),
+    .q(q),
+    .maxed(maxed)
+  );
+
+  // Stimulus
+  initial begin
+    $monitor("Time=%0t inc=%b dec=%b reset=%b q=%b maxed=%b", $time, inc, dec, reset, q, maxed);
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 1; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 1; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 1; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    inc = 1; dec = 0; reset = 0; #DELAY;
+    inc = 0; dec = 0; reset = 0; #DELAY;
+    #SIM_TIME
+    $finish;
+  end
+endmodule
